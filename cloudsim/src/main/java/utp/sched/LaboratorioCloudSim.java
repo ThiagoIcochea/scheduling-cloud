@@ -15,6 +15,8 @@ import org.cloudsimplus.utilizationmodels.UtilizationModelDynamic;
 import org.cloudsimplus.utilizationmodels.UtilizationModelFull;
 import org.cloudsimplus.vms.Vm;
 import org.cloudsimplus.vms.VmSimple;
+import org.cloudsimplus.util.Log;
+import ch.qos.logback.classic.Level;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,6 +35,7 @@ public class LaboratorioCloudSim {
     record Tarea(String id, long mi) {}
 
     public static void main(String[] args) throws IOException {
+        Log.setLevel(Level.WARN); // oculta el log INFO de cada evento de la simulación
         Path csv = Path.of(args.length > 0 ? args[0] : "../resultados/dataset_50_tareas.csv");
         List<Tarea> tareas = new ArrayList<>();
         for (String l : Files.readAllLines(csv).subList(1, Files.readAllLines(csv).size())) {
@@ -113,7 +116,7 @@ public class LaboratorioCloudSim {
             vms.add(vm);
         }
         List<Cloudlet> cls = new ArrayList<>();
-        Map<Cloudlet, Tarea> origen = new HashMap<>();
+        Map<Long, Tarea> origen = new HashMap<>();
         for (int[] p : plan) {
             Tarea t = tareas.get(p[0]);
             Cloudlet c = new CloudletSimple(t.mi(), 1);
@@ -121,7 +124,7 @@ public class LaboratorioCloudSim {
             c.setUtilizationModelRam(new UtilizationModelDynamic(0.05));
             c.setUtilizationModelBw(new UtilizationModelDynamic(0.05));
             cls.add(c);
-            origen.put(c, t);
+            origen.put(c.getId(), t);
         }
         broker.submitVmList(vms);
         broker.submitCloudletList(cls);
@@ -140,7 +143,7 @@ public class LaboratorioCloudSim {
             espera += ini;
             ocupado += f - ini;
             porVm[v]++;
-            w.printf(Locale.US, "%s,%s,VM%d,%d,%.2f,%.2f,%.2f%n", nombre, origen.get(c).id(), v + 1, MIPS[v], ini, f, ini);
+            w.printf(Locale.US, "%s,%s,VM%d,%d,%.2f,%.2f,%.2f%n", nombre, origen.get(c.getId()).id(), v + 1, MIPS[v], ini, f, ini);
         }
         espera /= fin.size();
         double util = ocupado / (makespan * MIPS.length) * 100;
