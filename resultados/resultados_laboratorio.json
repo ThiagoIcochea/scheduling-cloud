@@ -1,0 +1,72 @@
+{
+ "semilla": 45104,
+ "mips": {
+  "VM1": 500,
+  "VM2": 750,
+  "VM3": 1000,
+  "VM4": 1500,
+  "VM5": 2000
+ },
+ "resultados": {
+  "FCFS": {
+   "makespan_s": 126.32,
+   "espera_media_s": 49.15,
+   "respuesta_media_s": 61.45,
+   "utilizacion_pct": 97.4,
+   "tareas_por_vm": {
+    "VM1": 5,
+    "VM2": 8,
+    "VM3": 7,
+    "VM4": 17,
+    "VM5": 13
+   },
+   "ocupacion_s": {
+    "VM1": 123.09,
+    "VM2": 126.32,
+    "VM3": 123.5,
+    "VM4": 123.64,
+    "VM5": 118.63
+   }
+  },
+  "Min-Min": {
+   "makespan_s": 179.72,
+   "espera_media_s": 22.68,
+   "respuesta_media_s": 33.28,
+   "utilizacion_pct": 59.0,
+   "tareas_por_vm": {
+    "VM1": 2,
+    "VM2": 5,
+    "VM3": 9,
+    "VM4": 14,
+    "VM5": 20
+   },
+   "ocupacion_s": {
+    "VM1": 20.63,
+    "VM2": 68.28,
+    "VM3": 179.72,
+    "VM4": 122.71,
+    "VM5": 138.6
+   }
+  },
+  "Max-Min": {
+   "makespan_s": 122.6,
+   "espera_media_s": 89.34,
+   "respuesta_media_s": 101.54,
+   "utilizacion_pct": 99.5,
+   "tareas_por_vm": {
+    "VM1": 6,
+    "VM2": 7,
+    "VM3": 9,
+    "VM4": 13,
+    "VM5": 15
+   },
+   "ocupacion_s": {
+    "VM1": 122.09,
+    "VM2": 121.51,
+    "VM3": 121.77,
+    "VM4": 122.24,
+    "VM5": 122.6
+   }
+  }
+ }
+}
