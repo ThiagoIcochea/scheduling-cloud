@@ -8,7 +8,8 @@ clear
 case "${1:-1}" in
  1) echo "### Datos del caso y ACTIVIDAD 1: Round Robin"; head -4 /tmp/caso.txt; echo; bloque "Round Robin" ;;
  2) echo "### ACTIVIDAD 2: SJF (VM que queda libre primero)"; sed -n 4p /tmp/caso.txt; echo; bloque "SJF"; bloque "FCFS" ;;
- 3) echo "### ACTIVIDAD 3: Propuesta de optimización vs óptimo"; sed -n 3p /tmp/caso.txt; echo; bloque "Propuesta"; bloque "Basada en carga"; bloque "Óptima" ;;
+ 3) echo "### ACTIVIDAD 3: Propuesta de optimización vs óptimo"; sed -n 3p /tmp/caso.txt; echo; bloque "Propuesta"; bloque "Óptima" ;;
+ 7) echo "### ACTIVIDAD 3 (complemento): asignación basada en carga (LPT)"; bloque "Basada en carga" ;;
  4) echo "### PREGUNTA 3: VM heterogéneas (VM1 8 vCPU, VM2/VM3 2 vCPU)"; awk '/^##### Escenario/{f=1} f' /tmp/caso.txt ;;
  5) echo "### LABORATORIO (Python): 50 tareas, 5 VM heterogéneas, FCFS vs Min-Min"; python3 -m scheduler.laboratorio ;;
  6) echo "### LABORATORIO (CloudSim Plus, Java): 50 cloudlets, 5 VM, FCFS vs Min-Min"; bash cloudsim/ejecutar.sh ;;
