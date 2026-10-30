@@ -119,7 +119,7 @@ public class LaboratorioCloudSim {
         Map<Long, Tarea> origen = new HashMap<>();
         for (int[] p : plan) {
             Tarea t = tareas.get(p[0]);
-            Cloudlet c = new CloudletSimple(t.mi(), 1);
+            Cloudlet c = new CloudletSimple(cls.size(), t.mi(), 1); // id = orden de asignación
             c.setUtilizationModelCpu(new UtilizationModelFull());
             c.setUtilizationModelRam(new UtilizationModelDynamic(0.05));
             c.setUtilizationModelBw(new UtilizationModelDynamic(0.05));
