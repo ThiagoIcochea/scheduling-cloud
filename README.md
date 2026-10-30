@@ -13,6 +13,8 @@ virtuales y justificar cuál aprovecha mejor los recursos cloud.
 | `scheduler/algoritmos.py` | Round Robin, FCFS, SJF, asignación basada en carga (LPT), búsqueda óptima, Min-Min y Max-Min |
 | `scheduler/caso.py` | Caso de la evaluación: 8 trabajos en 3 VM de 4 vCPU/8 GB (y escenario heterogéneo de la pregunta 3) |
 | `scheduler/laboratorio.py` | Guía de laboratorio: 50 tareas en 5 VM heterogéneas, FCFS vs Min-Min (y Max-Min) |
+| `cloudsim/` | Mismo laboratorio en **CloudSim Plus (Java)**: 50 cloudlets, 5 VM (500–2000 MIPS), FCFS vs Min-Min (`bash cloudsim/ejecutar.sh`) |
+| `ver.sh` | Muestra la salida por partes para las capturas (`bash ver.sh 1` … `6`) |
 | `scheduler/excel.py` | Hoja de cálculo con fórmulas (cargas, makespan, cota inferior) |
 | `gcp/ejecutar.sh` | Ejecución real en Google Cloud: cada estrategia es un Cloud Run Job con 3 tareas paralelas de 4 vCPU/8 GB |
 | `resultados/` | Tablas (JSON/CSV), diagramas de Gantt, comparaciones y Excel generados |
