@@ -5,6 +5,8 @@ cd "$(dirname "$0")"
 [ -f /tmp/caso.txt ] || python3 -m scheduler.caso > /tmp/caso.txt
 bloque() { awk -v t="$1" -v n="${2:-1}" 'index($0,"=== " t)==1{f++} f==n && !/^$/{print} f==n && /^$/{exit}' /tmp/caso.txt; echo; }
 clear
+firma() { echo "Estudiante: Thiago Paolo Icochea Rodriguez · U22330428 · Servicios Cloud 45104 · $(TZ=America/Lima date '+%d/%m/%Y %H:%M:%S') (hora de Lima) · $(gcloud config get-value account 2>/dev/null)"; echo; }
+firma
 case "${1:-1}" in
  1) echo "### Datos del caso y ACTIVIDAD 1: Round Robin"; head -4 /tmp/caso.txt; echo; bloque "Round Robin" ;;
  2) echo "### ACTIVIDAD 2: SJF (VM que queda libre primero)"; sed -n 4p /tmp/caso.txt; echo; bloque "SJF"; bloque "FCFS" ;;
@@ -12,5 +14,6 @@ case "${1:-1}" in
  7) echo "### ACTIVIDAD 3 (complemento): asignación basada en carga (LPT)"; bloque "Basada en carga" ;;
  4) echo "### PREGUNTA 3: VM heterogéneas (VM1 8 vCPU = 2x, VM2/VM3 2 vCPU = 0,5x)"; bloque "Round Robin" 2; bloque "Basada en carga" 2; grep "Cota inferior hetero" /tmp/caso.txt ;;
  5) echo "### LABORATORIO (Python): 50 tareas, 5 VM heterogéneas, FCFS vs Min-Min"; python3 -m scheduler.laboratorio ;;
- 6) echo "### LABORATORIO (CloudSim Plus, Java): 50 cloudlets, 5 VM, FCFS vs Min-Min"; bash cloudsim/ejecutar.sh ;;
+ 6) echo "### LABORATORIO (CloudSim Plus, Java): 50 cloudlets, 5 VM, FCFS vs Min-Min"; bash cloudsim/ejecutar.sh 2>&1 | grep -v "^Detalle" ;;
+ 8) echo "### VERIFICACIÓN EN GOOGLE CLOUD: makespan medido en Cloud Run Jobs (Cloud Logging)"; gcloud run jobs list --region us-central1 --format="table(metadata.name:label=JOB,status.latestCreatedExecution.creationTimestamp.date(tz=America/Lima):label=ULTIMA_EJECUCION_LIMA,spec.template.spec.taskCount:label=TAREAS)" 2>/dev/null; python3 gcp/resultados_gcp.py "$(gcloud config get-value project 2>/dev/null)" 3 rr sjf propuesta ;;
 esac

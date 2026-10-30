@@ -3,7 +3,7 @@
 import json, subprocess, sys
 proyecto, escala, estrategias = sys.argv[1], float(sys.argv[2]), sys.argv[3:]
 filtro = 'resource.type="cloud_run_job" AND jsonPayload.evento="vm_fin"'
-salida = subprocess.run(["gcloud", "logging", "read", filtro, "--project", proyecto, "--freshness=2h",
+salida = subprocess.run(["gcloud", "logging", "read", filtro, "--project", proyecto, "--freshness=2d",
                          "--format=json", "--limit=200"], capture_output=True, text=True, check=True).stdout
 ultimos = {}
 for e in json.loads(salida or "[]"):
